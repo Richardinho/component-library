@@ -9,6 +9,7 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use('/css', express.static('css'))
+app.use('/js', express.static('js'))
 
 app.get('/', function (req, res) {
   const url = 'http://localhost:4000/api/emperors?' + 
