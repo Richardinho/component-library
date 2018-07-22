@@ -24,11 +24,23 @@ app.get('/', function (req, res) {
    
     resp.on('end', () => {
       const parsedData = JSON.parse(data);
-      const results = parsedData.results;
+      const pages = Math.ceil(parsedData.meta.totalResults / parsedData.meta.limit)
       const limit = parsedData.meta.limit;
-      const totalResults = parsedData.meta.totalResults;
-      const pages = Math.ceil(totalResults / limit)
-      res.render('index', { pages, results, limit, offset: parseInt(req.query.offset, 10) });
+      const paginationLinks = []; 
+
+      for(let i = 0; i < pages; i++) {
+        paginationLinks[i] = {
+          label: i + 1,
+          href: '/?offset=' + (i * limit),
+          active: (i * limit) === parseInt(req.query.offset, 10),
+        };
+      }
+
+      res.render('index', {
+        data,
+        parsedData,
+        paginationLinks,
+      });
     });
    
   }).on("error", (err) => {

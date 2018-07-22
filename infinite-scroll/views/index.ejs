@@ -2,32 +2,34 @@
   <head>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/main.css"/>
+    <script>
+    window.data = <%- data %>
+    </script>
   </head>
   <body>
     <div>
       <h1 class="page-header">Emperors of Rome</h1>
       <ul>
-      <% results.forEach(result => { %>
-        <li class="card">
-            <img
-              alt=""
-              class="card-image"
-              src="https://white-label-elements.herokuapp.com/images/medium/<%= result.id %>.jpg">
-            <h1 class="card-header"><%= result.name %></h1>
-            <p><%= result.from %></p>
-            <p><%= result.to %></p>
-            <p><%= result.summary %></p>
-            <p><%= result.dynasty %></p>
-            <% })  %>
-        </li>
+        <% parsedData.results.forEach(result => { %>
+          <li class="card">
+              <img
+                alt=""
+                class="card-image"
+                src="https://white-label-elements.herokuapp.com/images/medium/<%= result.id %>.jpg">
+              <h1 class="card-header"><%= result.name %></h1>
+              <p><%= result.from %></p>
+              <p><%= result.to %></p>
+              <p><%= result.summary %></p>
+              <p><%= result.dynasty %></p>
+          </li>
+        <% }) %>
       </ul>
       <noscript>
-        <h1>Javascript switched off</h1>
         <ul class="pagination">
-          <% for(let i = 0; i < pages; i++) { %>
-            <li class="pagination-link <%= (offset === (i * limit) ? 'active': '')%>">
-              <a href="/?offset=<%= i * limit %>">
-                <%= i + 1 %>
+          <% for(let i = 0; i < paginationLinks.length; i++) { %>
+            <li class="pagination-link <%= (paginationLinks[i].active ? 'active': '')%>">
+              <a href="<%= paginationLinks[i].href %>">
+                <%= paginationLinks[i].label %>
               </a>
             </li>
           <% } %>
