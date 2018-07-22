@@ -1,0 +1,71 @@
+.runway {
+
+  margin: auto;
+  width: 50vw;
+  position: relative;
+  background: transparent;
+}
+.sentinel {
+  width: 10px;
+  height: 10px;
+  background: red;
+  position: absolute;
+}
+
+body {
+  padding: 2rem;
+}
+
+.page-header {
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: normal;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: pink;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card:after { 
+  content: "";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.card-header {
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.card-image {
+  width: 10rem;
+  float: right;
+}
+
+.pagination {
+  display: flex;
+  width: 50%;
+  margin: auto;
+  justify-content: space-between;
+}
+.pagination-link {
+  background: pink;
+}
+.pagination-link a {
+  display: inline-block;
+  padding: 1rem;
+}
+.pagination-link a:hover {
+  background: red;
+}
+
+.active {
+  background: red;
+}
+
