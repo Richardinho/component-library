@@ -10,8 +10,9 @@ app.set('views', './views');
 
 app.use('/css', express.static('css'))
 app.use('/js', express.static('js'))
+app.use('/node_modules', express.static('node_modules'));
 
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   const url = 'http://localhost:4000/api/emperors?' + 
     'dynasty=all&yearFrom=-30&yearTo=500&sortOrder=succession&offset=' + (req.query.offset || 0);
  
