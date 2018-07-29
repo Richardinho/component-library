@@ -36,8 +36,7 @@ function listPage(p, query) {
     offset: params.get('offset') || 0,
   };
 
-  const bottomAnchor = calculateBottomAnchor(listPageState.topAnchor, 0);
-  const activeItems = calculateActiveItems(listPageState.topAnchor, listPageState.bottomAnchor);
+  listPageState = createListPageScrollState(listPageState, 0);
   createNodes();
   calculateHeightOfActiveItems(activeItems);
   calculateNewScrollPosition(listPageState.topAnchor, listPageState.items, 0, 0);

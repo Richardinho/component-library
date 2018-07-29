@@ -6,6 +6,7 @@ function calculateAnchor(initialAnchor, scroll, items) {
 
   let delta = initialAnchor.offset + scroll; 
   let i = initialAnchor.index;
+  const placeholderHeight = 3;
 
   if (delta < 0) {
     while (delta < 0 && i > 0) {
@@ -13,7 +14,7 @@ function calculateAnchor(initialAnchor, scroll, items) {
       i--;
     }
   } else {
-    while (delta > 0 && items[i].height < delta) {
+    while (delta >= 0 && items[i].height < delta) {
       delta -= items[i].height;
       i++;
     }
