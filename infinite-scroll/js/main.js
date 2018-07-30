@@ -1,54 +1,45 @@
-let items = [];
 
 let totalResults;
 let currentOffset;
 const root = null;
 const router = new Navigo(root);
 
-initialise();
+const listPage = ({ results, meta: { totalResults }}) => (p, query) => {
+  const params = new URLSearchParams(query);
 
-const listPageState = {
+  const index = params.get('index') || 0;
+  const offset = params.get('offset') || 0;
+
+  listPageState.topAnchor = {
+    index, offset,
+  };
+
+  const items = createItemsArray(results, totalResults, index);
+};
+
+let listPageState = {
   items: [],
   topAnchor: {},
   bottomAnchor: {},
 };
 
+initialise();
+
 function initialise() {
   const initialData = window.data;
   delete window.data;
 
-  router.on('/emperors', listPage, {
+  router.on('/emperors', listPage(initialData), {
     leave: () => {
       window.removeEventListener('scroll', listPageScrollHandler);
     }
-  });
+  }).resolve();
 
   router.on('/emperor/:id', detailPage, {});
 
   router.on('*', homePage, {});
 }
 
-function listPage(p, query) {
-  const params = new URLSearchParams(query);
-
-  listPageState.topAnchor = {
-    index: params.get('index') || 0,
-    offset: params.get('offset') || 0,
-  };
-
-  listPageState = createListPageScrollState(listPageState, 0);
-  createNodes();
-  calculateHeightOfActiveItems(activeItems);
-  calculateNewScrollPosition(listPageState.topAnchor, listPageState.items, 0, 0);
-  positionItems(activeItems);
-  setSentinel();
-  setScroll();
-  fetchData();
-
-  listPageScrollHandler();
-
-  window.addEventListener('scroll', listPageScrollHandler);
-}
 
 function detailPage() {
   console.log('detail page');
